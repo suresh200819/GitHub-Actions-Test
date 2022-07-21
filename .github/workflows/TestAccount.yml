@@ -1,0 +1,19 @@
+name: Environment-Setup
+
+on:push
+
+Jobs:
+  Build:
+    runs-on: windows-latest
+    environment: develop
+    steps:
+      - name: Environment-Setup
+        run: |
+         choco install nuget.commandline -y
+		     choco install visualstudio2019buildtools -y
+		     choco install packer -y
+		     choco install netfx-4.8devpack -y
+		     choco install dotnet4.7.1 -y
+		     choco install dotnetfx -y
+
+  
