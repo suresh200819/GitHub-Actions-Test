@@ -14,8 +14,4 @@ jobs:
           choco install visualstudio2019buildtools -y
           choco install packer -y
           choco install netfx-4.8devpack -y
-	  choco install dotnet4.7.1 -y
-
-
-
-
+          choco install dotnet4.7.1 -y
