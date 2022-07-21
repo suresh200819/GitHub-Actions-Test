@@ -10,6 +10,6 @@ jobs:
       - name: Chocolatey Action
         shell: pwsh
       -	run: |
-	  choco install nuget.commandline -y
+	choco install nuget.commandline -y
 
 
