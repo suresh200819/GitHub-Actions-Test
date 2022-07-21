@@ -1,10 +1,10 @@
-name: Testing Build Steps
+name: Testing Build Steps 
 
 on: push
 
 jobs:
   build:
-    name: Ody base
+    name: Test Project
     runs-on: windows-latest
     steps:
       - name: Environment-Setup
