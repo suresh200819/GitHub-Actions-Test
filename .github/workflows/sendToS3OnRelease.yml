@@ -7,7 +7,7 @@ jobs:
     name: Ody base
     runs-on: windows-latest
     steps:
-      - name: Chocolatey Action
+      - name: Environment-Setup
         shell: pwsh
         run: choco install nuget.commandline -y
 
