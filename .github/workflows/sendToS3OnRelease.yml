@@ -5,18 +5,14 @@ name: Testing Build Steps
 on: 
   push:
      branches:
-        - main
+        - test
 
 jobs:
   build:
     name: Test Project
     runs-on: windows-latest
     steps:
-      - name: Environment-Setup
+      - name: Test-Setup
         shell: pwsh
-        run: |
-          choco install nuget.commandline -y
-          choco install visualstudio2019buildtools -y
-          choco install packer -y
-          choco install netfx-4.8devpack -y
-          choco install dotnet4.7.1 -y
+        run: choco install nuget.commandline -y
+
