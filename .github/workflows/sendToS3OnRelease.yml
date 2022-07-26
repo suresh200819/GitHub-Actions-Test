@@ -1,6 +1,8 @@
 name: Testing Build Steps 
 
 on: push
+      branches:
+        - main
 
 jobs:
   build:
