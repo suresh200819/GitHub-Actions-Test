@@ -25,15 +25,11 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
     
-    - name: Set the Output
-      id: step_one
-      run: |
-        echo "output_name=fslive" >> "$GITHUB_ENV"
-   
-    - name: Use the Output 
-      id: step_two
-      run: |
-        echo "${{ env.output_name }}"
+    - name: Save state
+      run: echo "state=fslivestate" >> $GITHUB_STATE
+
+    - name: Set output
+      run: echo "output=fsliveoutput" >> $GITHUB_OUTPUT
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
