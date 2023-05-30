@@ -24,11 +24,16 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-
-    # Set-Output
-    - name: Setup Terraform
+    
+    - name: Set the Output
+      id: step_one
       run: |
-        echo "The output value is $MY_OUTPUT"
+        echo "output_name=fslive" >> "$GITHUB_ENV"
+   
+    - name: Use the Output 
+      id: step_two
+      run: |
+        echo "${{ env.output_name }}"
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
