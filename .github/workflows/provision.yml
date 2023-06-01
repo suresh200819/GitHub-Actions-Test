@@ -27,8 +27,6 @@ jobs:
     
     - name: Terraform Format
       run: terraform fmt
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -49,10 +47,5 @@ jobs:
       run: terraform apply -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        
-      # Set Output Variables
-    - name: Set Output Variables
-      run: | 
-         echo "TF_WORKSPACE=$(terraform workspace show)" >> $GITHUB_ENV
-         echo "TF_OUTPUT_VAR=$(terraform output -raw some_variable)" >> $GITHUB_ENV
+
          
