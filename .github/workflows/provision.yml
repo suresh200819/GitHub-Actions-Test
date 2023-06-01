@@ -36,7 +36,7 @@ jobs:
     - name: Terraform Plan
       run: terraform plan
       env:
-        TERRAFORM_CLI_PATH: /home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/examples
+        TERRAFORM_CLI_PATH: /home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # On push to main, build or change infrastructure according to Terraform configuration files
