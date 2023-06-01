@@ -34,12 +34,9 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: |
-        current_dir=$(echo "$(pwd)")
-        echo "Current Dir: $current_dir"
-        cd $current_dir/examples
-        terraform plan
+      run: terraform plan
       env:
+        TERRAFORM_CLI_PATH: /home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/examples
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # On push to main, build or change infrastructure according to Terraform configuration files
