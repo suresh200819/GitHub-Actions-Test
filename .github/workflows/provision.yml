@@ -39,7 +39,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: |
-        cd /actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/examples
+        cd /home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/examples
         terraform plan
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
