@@ -21,3 +21,7 @@ variable "public_ip_name" {
 variable "region" {
   type  = string
 }
+
+variable "project" {
+  type  = string
+}
