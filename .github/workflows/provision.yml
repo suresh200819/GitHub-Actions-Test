@@ -20,13 +20,6 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
-    
-    # Settig Output
-    - name: Save state
-      run: echo "tf-state=fslive" >> $GITHUB_STATE
-
-    - name: Set output
-      run: echo "tf-output=fslive-output" >> $GITHUB_OUTPUT
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
@@ -56,3 +49,10 @@ jobs:
       run: terraform apply -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        
+      # Set Output Variables
+    - name: Set Output Variables
+      run: | 
+         echo "TF_WORKSPACE=$(terraform workspace show)" >> $GITHUB_ENV
+         echo "TF_OUTPUT_VAR=$(terraform output -raw some_variable)" >> $GITHUB_ENV
+         
