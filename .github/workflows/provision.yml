@@ -27,11 +27,6 @@ jobs:
     
     - name: Terraform Format
       run: terraform fmt
-      
-    - name: Terraform Format
-      run: |
-        current_dir=$(echo "$(pwd)")
-        echo "Current Dir: $current_dir"
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -42,6 +37,8 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: |
+        current_dir=$(echo "$(pwd)")
+        echo "Current Dir: $current_dir"
         cd $current_dir/examples
         terraform plan
       env:
