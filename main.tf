@@ -1,3 +1,8 @@
+resource "google_compute_address" "public_ip" {
+  name    = var.public_ip_name
+  project = var.project
+}
+
 resource "google_compute_instance" "gce_instance" {
   project      = "nifty-quanta-387606"
   name         = var.instance_name
@@ -10,5 +15,8 @@ resource "google_compute_instance" "gce_instance" {
   }
   network_interface {
     network = "default"
+  access_config {
+    nat_ip = google_compute_address.public_ip.address
+    }
   }
 }
