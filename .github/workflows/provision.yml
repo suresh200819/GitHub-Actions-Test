@@ -20,23 +20,27 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        path: /home/newcloudfriends/actions-runner/fslive
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+      with:
+        path: /home/newcloudfriends/actions-runner/fslive
     
     - name: Terraform Format
-      run: terraform fmt
+      run: terraform fmt /home/newcloudfriends/actions-runner/fslive
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init
+      run: terraform init /home/newcloudfriends/actions-runner/fslive
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan
+      run: terraform plan /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test/examples
       env:
-        TERRAFORM_CLI_PATH: /home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars
+        TERRAFORM_CLI_PATH: /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test/examples
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # On push to main, build or change infrastructure according to Terraform configuration files
