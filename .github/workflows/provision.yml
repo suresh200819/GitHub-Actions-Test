@@ -18,29 +18,26 @@ jobs:
 
     steps:
     # Checkout the repository to the GitHub Actions runner
+    - name: Set Working Directory
+      run: echo "TF_WORKING_DIR=/home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test" >> $GITHUB_ENV
+    
     - name: Checkout
       uses: actions/checkout@v2
-      with:
-        path: /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test
-
+    
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      with:
-        path: /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test
     
     - name: Terraform Format
-      run: terraform fmt /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test
+      run: terraform fmt 
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init 
-      working-directory: /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test
-
+    
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan 
-      working-directory: /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test/examples
+      run: terraform plan -var-file="$GITHUB_ENV/examples"
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
