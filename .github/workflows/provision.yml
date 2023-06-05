@@ -18,9 +18,6 @@ jobs:
 
     steps:
     # Checkout the repository to the GitHub Actions runner
-    - name: Set Working Directory
-      run: echo "TF_WORKING_DIR=/home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test" >> $GITHUB_ENV
-    
     - name: Checkout
       uses: actions/checkout@v2
     
@@ -37,7 +34,7 @@ jobs:
     
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -var-file="$GITHUB_ENV/examples"
+      run: terraform plan
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
