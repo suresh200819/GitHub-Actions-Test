@@ -34,11 +34,13 @@ jobs:
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test
+      run: terraform init 
+      working-directory: /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test/examples
+      run: terraform plan 
+      working-directory: /home/newcloudfriends/actions-runner/fslive/GitHub-Actions-Test/GitHub-Actions-Test/examples
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
