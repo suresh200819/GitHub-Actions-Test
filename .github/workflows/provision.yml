@@ -26,15 +26,15 @@ jobs:
       uses: hashicorp/setup-terraform@v1
     
     - name: Terraform Format
-      run: sudo terraform fmt 
+      run: terraform fmt 
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: sudo terraform init 
+      run: terraform init 
     
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: sudo terraform plan
+      run: terraform plan
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
