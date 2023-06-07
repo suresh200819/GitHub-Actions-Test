@@ -42,9 +42,8 @@ jobs:
       run: |
         pwd
         ls -R
-        cd /examples/
         pwd
-        terraform plan 
+        terraform plan -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars"
       #working-directory: ${{env.working-directory}}
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
