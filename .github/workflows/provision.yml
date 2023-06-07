@@ -46,6 +46,7 @@ jobs:
       run: |
         cd ${{env.TERRAFORM_CLI_PATH}}
         pwd
+        ls -R
         terraform plan 
       #working-directory: ${{env.working-directory}}
       env:
