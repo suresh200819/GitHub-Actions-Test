@@ -52,7 +52,6 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan      
       run: |
-        cd ${{env.TERRAFORM_CLI_PATH}}
         pwd
         ls -R
         terraform plan 
