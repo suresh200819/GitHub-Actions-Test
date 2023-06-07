@@ -36,9 +36,12 @@ jobs:
     - name: Terraform Init
       run: |
        cd ${{env.TERRAFORM_CLI_PATH}}
+       ls -R
        mv terraform terraform-bin /home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/
        pwd
-       cd /home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/
+       cd ../..
+       cd GitHub-Actions-Test/GitHub-Actions-Test/
+       pwd
        terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
