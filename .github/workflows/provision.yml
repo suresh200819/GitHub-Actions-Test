@@ -54,6 +54,8 @@ jobs:
       run: |
         pwd
         ls -R
+        cd /examples/
+        pwd
         terraform plan 
       #working-directory: ${{env.working-directory}}
       env:
