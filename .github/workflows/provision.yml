@@ -21,8 +21,10 @@ jobs:
  
     - uses: actions/checkout@master
     - name: Checkout
-      run: ls -R
-      working-directory: ${{env.working-directory}}
+      run: |
+       ls -R
+       pwd
+      #working-directory: ${{env.working-directory}}
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
@@ -32,6 +34,7 @@ jobs:
       
     - name: Set up working directory
       run: |
+       pwd
        mkdir fslive-gcp 
        mv * fslive-gcp/ 
        cd fslive-gcp
