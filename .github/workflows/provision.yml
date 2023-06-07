@@ -31,14 +31,6 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
        terraform_version: 1.4 
-      
-    - name: Set up working directory
-      run: |
-       pwd
-       mkdir fslive-gcp 
-       mv /home/runner/work/ fslive-gcp/ 
-       cd fslive-gcp
-       pwd
 
     - name: Terraform Format
       run: terraform fmt
@@ -50,7 +42,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan      
       run: |
-        cd examples/
+        cd ${{env.TERRAFORM_CLI_PATH}}
         pwd
         terraform plan 
       #working-directory: ${{env.working-directory}}
