@@ -36,7 +36,7 @@ jobs:
       run: |
        pwd
        mkdir fslive-gcp 
-       mv /home/runner/work/GitHub-Actions-Test/ fslive-gcp/ 
+       mv /home/runner/work/ fslive-gcp/ 
        cd fslive-gcp
        pwd
 
