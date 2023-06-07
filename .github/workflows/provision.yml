@@ -18,13 +18,11 @@ jobs:
 
     steps:
     # Checkout the repository to the GitHub Actions runner
- 
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Checkout
       run: |
        ls -R
        pwd
-      #working-directory: ${{env.working-directory}}
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -33,24 +31,21 @@ jobs:
        terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        
+    
+    # Format the Terraform code  
     - name: Terraform Format
       run: terraform fmt
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan      
       run: |
-        pwd
-        ls -R
-        pwd
         terraform plan -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars"
-        pwd
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
-      run: terraform apply -auto-approve
+      run: terraform apply -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
