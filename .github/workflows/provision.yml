@@ -31,16 +31,12 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
        terraform_version: 1.4 
+      env:
+       TERRAFORM_CLI_PATH: /home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: |
-       cd ${{env.TERRAFORM_CLI_PATH}}
-       ls -R
-       mv terraform terraform-bin /home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/
-       pwd
-       cd ../..
-       cd GitHub-Actions-Test/GitHub-Actions-Test/
        pwd
        terraform init
       env:
