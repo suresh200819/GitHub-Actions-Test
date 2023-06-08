@@ -23,6 +23,16 @@ jobs:
       run: |
        ls -R
        pwd
+       
+   # Validate Packer Template
+    - name: Validate Packer Template
+      run: packer validate "/home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
+        
+   # Build Packer Template
+    - name: Build Packer Template
+      run: packer build "/home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
