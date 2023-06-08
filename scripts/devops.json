@@ -2,7 +2,7 @@
    "builders":[
       {
          "type":"googlecompute",
-         "account_file": "{{env 'GOOGLE_CREDENTIALS'}}",
+         "account_json": "{{user 'account_json'}}",
          "project_id":"nifty-quanta-387606",
          "zone":"europe-west2-a",
          "image_family":"rhel-7-9-sap-ha",
