@@ -27,6 +27,8 @@ jobs:
    # Validate Packer Template
     - name: Validate Packer Template
       run: packer validate "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         
    # Build Packer Template
     - name: Build Packer Template
