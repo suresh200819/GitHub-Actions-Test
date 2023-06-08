@@ -38,10 +38,18 @@ jobs:
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         
+   # GCloud Login
+    - name: GCloud Login
+      run: gcloud auth application-default login
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        
    # Build Packer Template
     - name: Build Packer Template
       run: packer build "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
-    
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        
     # Format the Terraform code  
     - name: Terraform Format
       run: terraform fmt
