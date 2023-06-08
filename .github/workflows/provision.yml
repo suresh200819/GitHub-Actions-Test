@@ -27,6 +27,12 @@ jobs:
    # Validate Packer Template
     - name: Validate Packer Template
       run: packer validate "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
+     
+  # Authenticate with GCP
+    - name: Authenticate with GCP
+      run: |
+       echo "${{ secrets.GOOGLE_CREDENTIALS }}" > key.json
+       gcloud auth activate-service-account --key-file=key.json --project=nifty-quanta-387606
       
   # Validate GCP Image with same name exists in Account
     - name: Validate Image in GCP Account
