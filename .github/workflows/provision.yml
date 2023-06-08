@@ -28,7 +28,7 @@ jobs:
     - name: Validate Packer Template
       run: packer validate "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -53,7 +53,7 @@ jobs:
     - name: Build Packer Template
       run: packer build "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         
 
       # On push to main, build or change infrastructure according to Terraform configuration files
