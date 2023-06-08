@@ -1,0 +1,44 @@
+{
+   "builders":[
+      {
+         "type":"googlecompute",
+         "project_id":"nifty-quanta-387606",
+         "zone":"europe-west2-a",
+         "image_family":"rhel-7-9-sap-ha",
+         "image_name":"devops-image",
+         "source_image_family":"rhel-7-9-sap-ha",
+         "ssh_username":"ec2-user",
+         "image_description":"Image with PostgreSQL client installed",
+         "machine_type":"n1-standard-1",
+         "disk_size":"30",
+         "disk_type":"pd-ssd",
+         "network":"default",
+         "subnetwork":"default"
+      }
+   ],
+   "provisioners":[
+      {
+         "type":"shell",
+         "inline":[
+             "sudo yum update -y",
+             "sudo yum install -y docker",
+             "sudo curl -LO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-369.0.0-linux-x86_64.tar.gz",
+             "sudo tar xvzf google-cloud-sdk-369.0.0-linux-x86_64.tar.gz",
+             "sudo ./google-cloud-sdk/install.sh -q",
+             "sudo yum install -y unzip",
+             "sudo curl -LO https://releases.hashicorp.com/terraform/1.0.1/terraform_1.0.1_linux_amd64.zip",
+             "sudo unzip terraform_1.0.1_linux_amd64.zip",
+             "sudo mv terraform /usr/local/bin/",
+             "sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.22.0/bin/linux/amd64/kubectl",
+             "sudo chmod +x kubectl",
+             "sudo mv kubectl /usr/local/bin/",
+             "sudo curl -LO https://releases.hashicorp.com/packer/1.7.4/packer_1.7.4_linux_amd64.zip",
+             "sudo unzip packer_1.7.4_linux_amd64.zip",
+             "sudo mv packer /usr/local/bin/",
+             "curl -LO https://nodejs.org/dist/v18.16.0/node-v18.16.0-linux-x64.tar.xz",
+             "tar xvf node-v18.16.0-linux-x64.tar.xz",
+             "sudo mv node-v18.16.0-linux-x64/bin/node /usr/local/bin"
+         ]
+      }
+   ]
+}
