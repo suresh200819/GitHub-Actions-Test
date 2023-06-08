@@ -2,8 +2,6 @@
   "variables": {
         "gcloud_account_json": "${{ secrets.GOOGLE_CREDENTIALS }}"
   },
-
-{
    "builders":[
       {
          "type":"googlecompute",
