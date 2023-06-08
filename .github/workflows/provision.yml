@@ -34,7 +34,7 @@ jobs:
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       run: |
-       if gcloud compute images describe devops-image --project=nifty-quanta-387606 --quiet; then
+       if sudo gcloud compute images describe devops-image --project=nifty-quanta-387606 --quiet; then
           echo "::set-output name=exist::false"
        fi
       
