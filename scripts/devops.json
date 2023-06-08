@@ -1,6 +1,6 @@
 {
   "variables": {
-        "gcloud_account_json": "${{ secrets.GOOGLE_CREDENTIALS }}"
+        "gcloud_account_json": "{{env 'GOOGLE_APPLICATION_CREDENTIALS'}}",
   },
    "builders":[
       {
