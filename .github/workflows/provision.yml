@@ -41,8 +41,6 @@ jobs:
    # Build Packer Template
     - name: Build Packer Template
       run: packer build "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
     
     # Format the Terraform code  
     - name: Terraform Format
