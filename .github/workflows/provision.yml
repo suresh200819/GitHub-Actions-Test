@@ -26,11 +26,11 @@ jobs:
        
    # Validate Packer Template
     - name: Validate Packer Template
-      run: packer validate "/home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
+      run: packer validate "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
         
    # Build Packer Template
     - name: Build Packer Template
-      run: packer build "/home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
+      run: packer build "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/scripts/devops.json"
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         
@@ -49,13 +49,13 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan      
       run: |
-        terraform plan -var-file="/home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars"
+        terraform plan -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars"
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
-      run: terraform apply -var-file="/home/newcloudfriends/actions-runner/fslive-project/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -auto-approve
+      run: terraform apply -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
