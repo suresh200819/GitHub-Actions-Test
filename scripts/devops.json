@@ -1,8 +1,11 @@
 {
+   "variables": {
+   "account_json": "{{ env `GOOGLE_CREDENTIALS` }}"
+},
    "builders":[
       {
          "type":"googlecompute",
-         "account_file": "{{env `GOOGLE_APPLICATION_CREDENTIALS`}}",
+         "account_file": "{{user `account_json`}}",
          "project_id":"nifty-quanta-387606",
          "zone":"europe-west2-a",
          "image_family":"rhel-7-9-sap-ha",
