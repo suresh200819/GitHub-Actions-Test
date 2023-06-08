@@ -1,7 +1,13 @@
 {
+  "variables": {
+        "gcloud_account_json": ${{ secrets.GOOGLE_CREDENTIALS }}
+  },
+
+{
    "builders":[
       {
          "type":"googlecompute",
+         "account_file": "{{user 'gcloud_account_json'}}",
          "project_id":"nifty-quanta-387606",
          "zone":"europe-west2-a",
          "image_family":"rhel-7-9-sap-ha",
