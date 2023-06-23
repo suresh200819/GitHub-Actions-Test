@@ -20,4 +20,5 @@ resource "google_compute_instance" "gce_instance" {
     nat_ip = google_compute_address.public_ip.address
     }
   }
+  tags = ["web", "db"]
 }
