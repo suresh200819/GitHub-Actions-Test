@@ -28,7 +28,14 @@ jobs:
         run: |
           packer validate "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/nginx"
           pwd
-          cat ${{ secrets.GOOGLE_CREDENTIALS }}
+      
+      # setup gcp credentials file  
+      - name: setup gcp credentials file
+        run: |
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > /home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/nginx/credentials.json
+          pwd
+          ls -R
+          cat credentials.json
           
       # setup gcp service account
       - name: Gcloud Setup
