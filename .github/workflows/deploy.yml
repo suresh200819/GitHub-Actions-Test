@@ -35,6 +35,7 @@ jobs:
           echo "${{ secrets.GOOGLE_CREDENTIALS }}" > /home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/nginx/credentials.json
           pwd
           ls -R
+          cd /nginx
           cat credentials.json
           
       # setup gcp service account
