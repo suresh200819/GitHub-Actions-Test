@@ -19,7 +19,7 @@ jobs:
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: |
-          packer init "/home/runner/work/imagefactory/imagefactory"
+          packer init "/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/nginx"
         
       # Validate Packer Template
       - name: Validate Packer Template
