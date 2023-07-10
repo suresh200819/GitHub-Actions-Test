@@ -29,8 +29,8 @@ source "goolecompute" "image" {
   network                         = var.network
   subnetwork                      = format("projects/%s/regions/%s/subnetworks/%s", var.network_project_id, var.region, var.subnetwork)
   metadata                        = var.metadata
-  omit_external_ip                = true
-  use_internal_ip                 = true
+  #omit_external_ip                = true
+  use_internal_ip                 = false
   preemptible                     = var.preemptible
   tags                            = var.tags
 }
