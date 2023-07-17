@@ -1,77 +1,51 @@
-name: 'GCP Deployment'
+name: 'Terraform workflow'
 
 on:
   push:
     branches:
-      - main
+    - main
   pull_request:
 
 jobs:
   terraform:
     name: 'Terraform'
-    permissions:
-      contents: read
-      id-token: write
-      pull-requests: write
     runs-on: ubuntu-latest
-    continue-on-error: true
 
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    ## Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
 
-    steps:       
+    steps:
     # Checkout the repository to the GitHub Actions runner
+    - uses: actions/checkout@v2
     - name: Checkout
-      uses: actions/checkout@v2
-    
-    # Setup Terraform
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 1.4.6
-        terraform_wrapper: true
-        
+      run: |
+       ls -R
+       pwd
+
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      #id: init
       run: |
        pwd
        terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-    
+        
     # Format the Terraform code  
-    - name: Terraform Format 
-      #id: fmt
-      run: terraform fmt -no-color
-      
-    # Validate the Terraform code  
-    - name: Terraform Validate
-      #id: validate
-      run: terraform validate -no-color
+    - name: Terraform Format
+      run: terraform fmt
 
     # Generates an execution plan for Terraform
-    - name: Terraform Plan 
-      #id: plan    
+    - name: Terraform Plan      
       run: |
-        terraform plan -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -out tfplan -no-color
-        echo ${{ steps.plan.outputs.stdout }}
+        terraform plan -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars"
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        
-    # Terraform Show 
-    - name: Terraform Show
-      #id: show
-      run: terraform show -no-color tfplan
-      
-    # On push to main, build or change infrastructure according to Terraform configuration files
+
+      # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      #id: apply
-      #if: github.event.pull_request.merged == true
       if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
       run: terraform apply -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-  
