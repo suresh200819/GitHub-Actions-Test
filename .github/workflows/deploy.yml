@@ -94,8 +94,8 @@ jobs:
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      #if: github.event.pull_request.merged == true
-      if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
+      if: github.event.pull_request.merged == true
+      #if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
       run: terraform apply -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
