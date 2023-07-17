@@ -5,9 +5,7 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
-      
+
 jobs:
   terraform:
     name: 'Terraform'
@@ -37,7 +35,7 @@ jobs:
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      id: init
+      #id: init
       run: |
        pwd
        terraform init
@@ -46,17 +44,17 @@ jobs:
     
     # Format the Terraform code  
     - name: Terraform Format 
-      id: fmt
+      #id: fmt
       run: terraform fmt -no-color
       
     # Validate the Terraform code  
     - name: Terraform Validate
-      id: validate
+      #id: validate
       run: terraform validate -no-color
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan 
-      id: plan    
+      #id: plan    
       run: |
         terraform plan -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -out tfplan -no-color
         echo ${{ steps.plan.outputs.stdout }}
@@ -65,14 +63,14 @@ jobs:
         
     # Terraform Show 
     - name: Terraform Show
-      id: show
+      #id: show
       run: terraform show -no-color tfplan
       
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      id: apply
-      if: github.event.pull_request.merged == true
-      #if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
+      #id: apply
+      #if: github.event.pull_request.merged == true
+      if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
       run: terraform apply -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
