@@ -1,4 +1,4 @@
-name: 'GCP Deployment'
+name: 'GCP Deployments'
 
 on:
   push:
