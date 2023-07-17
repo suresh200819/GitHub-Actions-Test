@@ -3,10 +3,15 @@ name: 'GCP Deployment'
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
+    types:
+      - opened # default
+      - synchronize # default
+      - reopened # default
+      - closed
 
 jobs:
   terraform:
@@ -70,7 +75,7 @@ jobs:
       
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      if: github.event.pull_request.merged = true
+      if: github.event.pull_request.merged == true
       #if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
       run: terraform apply -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -auto-approve
       env:
