@@ -70,7 +70,7 @@ jobs:
     - name: Post Terraform Plan in PR comments
       uses: actions/github-script@v6
       continue-on-error: true
-      if: github.event.pull_request.merged == true
+      if: github.event.pull_request.merged ! = true
       with:
         github-token: ${{ secrets.PAT_TOKEN }}
         script: |
