@@ -5,6 +5,8 @@ on:
     branches:
     - main
   pull_request:
+    branches:
+    - main
 
 jobs:
   terraform:
@@ -14,6 +16,7 @@ jobs:
       id-token: write
       pull-requests: write
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -68,7 +71,6 @@ jobs:
     # Post Terraform Plan in PR comments
     - name: Post Terraform Plan in PR comments
       uses: actions/github-script@v6
-      continue-on-error: true
       if: github.event.pull_request.merged != true
       with:
         github-token: ${{ secrets.PAT_TOKEN }}
