@@ -36,8 +36,6 @@ jobs:
       run: |
        pwd
        terraform init
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
     
     # Format the Terraform code  
     - name: Terraform Format 
