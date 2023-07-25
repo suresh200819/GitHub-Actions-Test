@@ -35,10 +35,9 @@ jobs:
       id: init
       run: |
        pwd
-       cat ${{ secrets.GOOGLE_CREDENTIALS }}
        terraform init
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
     
     # Format the Terraform code  
     - name: Terraform Format 
@@ -57,7 +56,7 @@ jobs:
         terraform plan -var-file="${{ secrets.TFVARS_PATH }}" -out tfplan -no-color
         echo ${{ steps.plan.outputs.stdout }}
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         
     # Terraform Show 
     - name: Terraform Show
@@ -71,4 +70,4 @@ jobs:
       #if: github.ref == 'refs/heads/main' 
       run: terraform apply -var-file="${{ secrets.TFVARS_PATH }}" -auto-approve
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
