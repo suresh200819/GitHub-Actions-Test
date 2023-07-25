@@ -56,7 +56,7 @@ jobs:
     - name: Terraform Plan 
       id: plan    
       run: |
-        terraform plan -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -out tfplan -no-color
+        terraform plan -var-file="${{ secrets.TFVARS_PATH }}" -out tfplan -no-color
         echo ${{ steps.plan.outputs.stdout }}
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
@@ -65,38 +65,12 @@ jobs:
     - name: Terraform Show
       id: show
       run: terraform show -no-color tfplan
-        
-    # Post Terraform Plan in PR comments
-    - name: Post Terraform Plan in PR comments
-      uses: actions/github-script@v6
-      continue-on-error: true
-      #if: github.event.pull_request.merged != true
-      if: github.event_name == 'pull_request' && github.event.action == 'open' && github.event.action == 'closed' && github.event.pull_request.merged == true
-      with:
-        github-token: ${{ secrets.PAT_TOKEN }}
-        script: |
-          const output = `#### Terraform Format 🖌\`${{ steps.fmt.outcome }}\`
-          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-          #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-          <details><summary>Show Plan</summary>
-          \`\`\`\n
-          ${{ steps.plan.outputs.stdout }}
-          \`\`\`
-          </details>
-          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: output
-          })
-
+      
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
       if: github.event.pull_request.merged == true
       #if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
       #if: github.ref == 'refs/heads/main' 
-      run: terraform apply -var-file="/home/runner/work/GitHub-Actions-Test/GitHub-Actions-Test/examples/terraform.tfvars" -auto-approve
+      run: terraform apply -var-file="${{ secrets.TFVARS_PATH }}" -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
