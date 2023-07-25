@@ -35,6 +35,7 @@ jobs:
       id: init
       run: |
        pwd
+       cat ${{ secrets.GOOGLE_CREDENTIALS }}
        terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
