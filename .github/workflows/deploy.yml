@@ -1,6 +1,7 @@
 name: 'GCP Deployment'
 
 on:
+  workflow_call:
   push:
     branches:
     - main
