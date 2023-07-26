@@ -14,8 +14,8 @@ jobs:
     name: 'poc-adm-finserv-1133276 deployment'
     permissions:
       contents: read
-      id-token: write
-      pull-requests: write
+      id-token: none
+      pull-requests: none
     runs-on: ubuntu-latest
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
