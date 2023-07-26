@@ -1,4 +1,4 @@
-name: 'GCP Deployment'
+name: 'GCP Deployments'
 
 on:
   workflow_call:
@@ -6,10 +6,16 @@ on:
     branches:
     - main
   pull_request:
+    branches:
+    - main
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'poc-adm-finserv-1133276 deployment'
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
     runs-on: ubuntu-latest
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -18,14 +24,26 @@ jobs:
         shell: bash
 
     steps:  
-          
+    # Authenticate Private GitHub Remote Modules
+    - name: Authenticate Private Remote Modules
+      run: git config --global url."https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com".insteadOf ssh://git@github.com
+    
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     
-    # Setup Terraform
+    - name: 'Authenticate to Google Cloud'
+      id: auth
+      uses: google-github-actions/auth@v1.1.1
+      with:
+        create_credentials_file: 'true'
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+    
+        # Setup Terraform
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      id: setup
+      uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: 1.4.6
         terraform_wrapper: true
@@ -36,8 +54,6 @@ jobs:
       run: |
        pwd
        terraform init
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
     
     # Format the Terraform code  
     - name: Terraform Format 
@@ -55,8 +71,6 @@ jobs:
       run: |
         terraform plan -var-file="${{ secrets.TFVARS_PATH }}" -out tfplan -no-color
         echo ${{ steps.plan.outputs.stdout }}
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         
     # Terraform Show 
     - name: Terraform Show
@@ -65,9 +79,5 @@ jobs:
       
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      #if: github.event.pull_request.merged == true
-      #if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
-      #if: github.ref == 'refs/heads/main' 
+      if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
       run: terraform apply -var-file="${{ secrets.TFVARS_PATH }}" -auto-approve
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
