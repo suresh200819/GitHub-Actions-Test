@@ -76,8 +76,10 @@ jobs:
     - name: Terraform Show
       id: show
       run: terraform show -no-color tfplan
-      
+
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
+      #if: github.event.pull_request.merged == true
+      #if: github.ref == 'refs/heads/main' && github.event_name == 'merge'
+      if: github.ref == 'refs/heads/main'
       run: terraform apply -var-file="${{ secrets.TFVARS_PATH }}" -auto-approve
